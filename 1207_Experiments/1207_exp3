@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grading System</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, hsl(210, 75%, 69%), hsl(215, 52%, 79%));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 350px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: hsl(211, 39%, 49%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: hsl(211, 100%, 41%);
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📊 Sharvari's Grading System</h2>
+    <label>Enter Marks:</label><br>
+    <input type="number" id="marks" placeholder="Enter marks (0-100)">
+    <br>
+    <button onclick="checkGrade()">Submit</button>
+    <p id="result"></p>
+</div>
+
+<script>
+function checkGrade() {
+    var marks = Number(document.getElementById("marks").value);
+    var input = document.getElementById("marks").value;
+    
+    if (input === "") {
+        alert("Please enter marks!");
+        return;
+    }
+    
+    if (marks < 0 || marks > 100) {
+        alert("Please enter valid marks between 0 and 100.");
+        return;
+    }
+    
+    var grade = ""; 
+    
+    if (marks >= 90) {
+        grade = "A Grade";
+    } else if (marks >= 80) {
+        grade = "B Grade";
+    } else if (marks >= 70) {
+        grade = "C Grade";
+    } else if (marks >= 60) {
+        grade = "D Grade";
+    } else { 
+        grade = "F Grade (Fail)";
+    }
+    
+    document.getElementById("result").innerHTML = "Marks: " + marks + "<br>Grade: " + grade;
+}
+</script>
+
+</body>
+</html>
