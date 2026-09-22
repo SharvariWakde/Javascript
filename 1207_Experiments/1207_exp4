@@ -1,0 +1,53 @@
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+console.log("=========Sharvari wakde 1207 Cart Calculator========");
+console.log("Format: Item Name - Quantity - Price, Another Item - Quantity - Price");
+console.log("Example: linen blanket-2-2300, Coffee beans-1-2500, fairy Mug-2-700\n");
+
+rl.question("Enter your list: ", (userInput) => {
+    let cart = [];
+    
+    let itemsRaw = userInput.split(',');
+
+    for (let rawItem of itemsRaw) {
+      
+        let details = rawItem.split('-');
+
+        if (details.length === 3) {
+            let name = details[0].trim();
+            let quantity = parseInt(details[1].trim(), 10);
+            let price = parseFloat(details[2].trim());
+
+            
+            if (name && !isNaN(quantity) && !isNaN(price)) {
+                cart.push({ name, price, quantity });
+            }
+        }
+    }
+
+    
+    if (cart.length > 0) {
+        console.log("\n--- Generated Cart Array ---");
+        console.log(JSON.stringify(cart, null, 2));
+
+        console.log("\n--- Final Receipt ---");
+        let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        let tier = Math.floor(total / 1000);
+        let discountPercentage = Math.min(tier * 10, 100); 
+        let discount = total * (discountPercentage / 100);
+        let finalAmount = total - discount;
+
+        console.log("Total Amount: ", total);
+        console.log(`Discount Applied: ${discountPercentage}% (${discount})`);
+        console.log("Final Amount: ", finalAmount);
+    } else {
+        console.log("\n❌ No valid items found. Check your format and try again.");
+    }
+
+    rl.close();
+});
