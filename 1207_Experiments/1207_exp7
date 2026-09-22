@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do List</title>
+    <style>
+        /* CSS STYLING */
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4efe9; /* Soft Warm Beige Background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .todo-container {
+            background: #faf8f5; /* Off-White / Cream Card */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(139, 126, 116, 0.15); /* Soft Warm Shadow */
+            width: 350px;
+            border: 1px solid #e8dec9;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a3e3d; /* Deep Warm Espresso */
+            margin-top: 0;
+            font-family: "Georgia", serif;
+            font-size: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        #taskInput {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d5c7b3;
+            background-color: #fff;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #4a3e3d;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #taskInput:focus {
+            border-color: #a89480; /* Soft Taupe Focus Border */
+        }
+
+        #taskInput::placeholder {
+            color: #bfae9e;
+        }
+
+        #addBtn {
+            padding: 10px 18px;
+            background-color: #8c7a6b; /* Muted Earthy Brown */
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #addBtn:hover {
+            background-color: #705f52; /* Darker Earthy Brown */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #fdfcfb;
+            border: 1px solid #eedec9;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            color: #5c4e4b;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        li:hover {
+            background: #faf6f0;
+            border-color: #d5c7b3;
+        }
+
+        /* Class to visually cross out completed tasks */
+        li.completed {
+            text-decoration: line-through;
+            color: #b5a99e;
+            background: #f5f0eb;
+            border-color: #e3dacd;
+        }
+
+        .delete-btn {
+            background-color: #c99a83; /* Soft Terracotta Clay */
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .delete-btn:hover {
+            background-color: #b3816a; /* Darker Terracotta Clay */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="todo-container">
+        <h2>Sharvari's To-Do List 1207</h2>
+        
+        <!-- Input section -->
+        <div class="input-section">
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <button id="addBtn">Add</button>
+        </div>
+
+        <!-- Task List container -->
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        // JAVASCRIPT LOGIC
+        // 1. Reference elements
+        const taskInput = document.getElementById('taskInput');
+        const addBtn = document.getElementById('addBtn');
+        const taskList = document.getElementById('taskList');
+
+        // 2. Add Task Function
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText === '') {
+                alert('Please enter a task!');
+                return;
+            }
+
+            // Create list item (li)
+            const li = document.createElement('li');
+            li.textContent = taskText;
+
+            // Create delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.className = 'delete-btn';
+
+            // Append delete button to li
+            li.appendChild(deleteBtn);
+
+            // Append li to the main list
+            taskList.appendChild(li);
+
+            // Reset input field
+            taskInput.value = '';
+
+            // Click to toggle "completed" styling
+            li.addEventListener('click', function(e) {
+                if (e.target !== deleteBtn) {
+                    li.classList.toggle('completed');
+                }
+            });
+
+            // Click to delete task
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+            });
+        }
+
+        // 3. Event Listeners
+        addBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+    </script>
+
+</body>
+</html>
